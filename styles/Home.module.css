@@ -8,6 +8,7 @@
   min-height: 75vh;
   padding: 4rem 0;
   flex: 1;
+  gap: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

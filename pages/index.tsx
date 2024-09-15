@@ -1,13 +1,18 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import { CONTRACT_ADDRESS } from "../const/addresses";
+import { collections } from "../const/addresses";
 import CollectionCard from "../components/CollectionCard";
+import EditionCollectionCard from "../components/EditionCollectionCard";
 
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <CollectionCard contractAddress={CONTRACT_ADDRESS} />
+        {collections.map((collection) => {
+          const Card =
+            collection.type === "nft" ? CollectionCard : EditionCollectionCard;
+          return <Card contractAddress={collection.address} />;
+        })}
       </main>
     </div>
   );

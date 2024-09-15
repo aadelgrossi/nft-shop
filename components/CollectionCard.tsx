@@ -61,7 +61,11 @@ const CollectionCard = ({ contractAddress }: CollectionCardProps) => {
   return (
     <div className={styles.heroSection}>
       <div className={styles.collectionImage}>
-        <MediaRenderer src={contractMetadata?.image} />
+        <MediaRenderer
+          src={contractMetadata?.image}
+          width="100%"
+          height="100%"
+        />
       </div>
       <div>
         <h1 style={{ margin: "unset" }}>{contractMetadata?.name}</h1>
