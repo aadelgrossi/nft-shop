@@ -59,13 +59,9 @@ const CollectionCard = ({ contractAddress }: CollectionCardProps) => {
   if (isContractMetadataLoading) return <></>;
 
   return (
-    <div className={styles.heroSection}>
+    <div className={styles.heroSection} style={{ padding: "2rem" }}>
       <div className={styles.collectionImage}>
-        <MediaRenderer
-          src={contractMetadata?.image}
-          width="100%"
-          height="100%"
-        />
+        <MediaRenderer src={contractMetadata?.image} />
       </div>
       <div>
         <h1 style={{ margin: "unset" }}>{contractMetadata?.name}</h1>
