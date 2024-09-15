@@ -149,14 +149,14 @@
   padding: 2rem 2rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 2rem;
   border-radius: 20px;
 }
 .collectionImage {
   border-radius: 20px;
   overflow: hidden;
-  margin-right: 2rem;
+  width: 100%;
 }
 .claimContainer {
   display: flex;
