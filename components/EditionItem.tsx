@@ -1,9 +1,13 @@
 import {
   MediaRenderer,
   useActiveClaimCondition,
+  useAddress,
+  useClaimIneligibilityReasons,
   useContract,
+  Web3Button,
 } from "@thirdweb-dev/react";
 import { NFT } from "@thirdweb-dev/sdk";
+import { useRouter } from "next/router";
 
 type EditionItemProps = {
   nft: NFT;
@@ -11,6 +15,8 @@ type EditionItemProps = {
 };
 
 const EditionItem = ({ nft, contractAddress }: EditionItemProps) => {
+  const address = useAddress() || "";
+  const router = useRouter();
   const { contract } = useContract(contractAddress);
 
   const { data: activeClaimCondition, isLoading } = useActiveClaimCondition(
@@ -18,7 +24,13 @@ const EditionItem = ({ nft, contractAddress }: EditionItemProps) => {
     nft.metadata.id
   );
 
-  console.log({ activeClaimCondition });
+  const { data: claimIneligibilityReasons = [] } = useClaimIneligibilityReasons(
+    contract,
+    { walletAddress: address, quantity: 1 },
+    nft.metadata.id
+  );
+
+  const isIneligibleToClaim = claimIneligibilityReasons.length > 0;
 
   return (
     <div>
@@ -38,6 +50,20 @@ const EditionItem = ({ nft, contractAddress }: EditionItemProps) => {
             Supply: {activeClaimCondition?.availableSupply} /{" "}
             {activeClaimCondition?.maxClaimableSupply}
           </p>
+          {address ? (
+            <Web3Button
+              isDisabled={isIneligibleToClaim}
+              contractAddress={contractAddress}
+              action={(contract) =>
+                contract.erc1155.claimTo(address, nft.metadata.id, 1)
+              }
+              onSuccess={() => router.push(`/profile/${address}`)}
+            >
+              Claim NFT
+            </Web3Button>
+          ) : (
+            <p>Connect wallet</p>
+          )}
         </>
       )}
     </div>
