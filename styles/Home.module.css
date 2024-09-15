@@ -187,7 +187,7 @@
 .NFTCard {
   background-color: #1b2129;
   color: #fff;
-  padding: 2rem 2rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
